@@ -1,0 +1,9 @@
+numpy
+torch
+pynvml
+tensorboard
+optuna
+pyyaml
+matplotlib
+pandas
+colorama
