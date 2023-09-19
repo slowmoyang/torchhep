@@ -56,4 +56,4 @@ def run_study(objective: ObjectiveBase,
 
     plot_dir = log_dir / 'plot'
     plot_dir.mkdir()
-    plot_study(study, metric_name=objective.metric_name, output_dir=plot_dir)
+    plot_study(study, target_name=objective.target_name, output_dir=plot_dir)
