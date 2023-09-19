@@ -2,7 +2,7 @@ import dataclasses
 from typing import Any
 import optuna
 from optuna.trial import Trial
-from hierconfig.config import hierconfig, config_field
+from hierconfig.config import ConfigBase, config_field
 
 
 def categorical_field(default, choices, help: str | None = None):
@@ -84,8 +84,8 @@ def loguniform_field(default, low, high, help: str | None = None):
     return config_field(default=default, metadata=metadata, help=help)
 
 
-
-class HyperparameterConfigBase:
+@dataclasses.dataclass
+class HyperparameterConfigBase(ConfigBase):
 
     @classmethod
     def _from_trial(cls, trial: optuna.Trial, prefixes: list[str]):
