@@ -27,7 +27,7 @@ class ObjectiveBase(abc.ABC):
             for epoch in range(self.num_epochs):
                 self.train(suggestion)
                 val_result = self.validate(suggestion)
-                metric = val_result[self.metric_name]
+                metric = val_result[self.target_name]
                 trial.report(metric, epoch)
                 if trial.should_prune():
                     raise optuna.exceptions.TrialPruned()
@@ -42,7 +42,7 @@ class ObjectiveBase(abc.ABC):
     @classmethod
     @property
     @abc.abstractmethod
-    def metric_name(cls) -> str:
+    def target_name(cls) -> str:
         ...
 
     @classmethod

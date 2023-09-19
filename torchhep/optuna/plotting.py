@@ -10,7 +10,7 @@ import optuna.visualization.matplotlib as ovm
 def plot_pretty_contour(study: optuna.Study,
                         param_0: str,
                         param_1: str,
-                        metric_name: Optional[str] = None,
+                        target_name: Optional[str] = None,
 ) -> plt.Subplot:
     ax: plt.Subplot = ovm.plot_contour(
         study, params=[param_0, param_1])
@@ -37,8 +37,8 @@ def plot_pretty_contour(study: optuna.Study,
     fig = ax.get_figure() # type: ignore
     if len(fig.get_axes()) > 1:
         colorbar_ax = fig.get_axes()[1] # type: ignore
-        if metric_name is not None:
-            colorbar_ax.set_ylabel(metric_name, size=20)
+        if target_name is not None:
+            colorbar_ax.set_ylabel(target_name, size=20)
     return ax
 
 
@@ -63,7 +63,7 @@ def save_optuna_plot(ax: plt.Subplot,
     plt.close(fig)
 
 
-def plot_study(study: optuna.Study, metric_name: str, output_dir: Path):
+def plot_study(study: optuna.Study, target_name: str, output_dir: Path):
     """
     this function assumes that the study is a multi-objective optimization
     does not call 'plot_parallel_coordinate' and 'plot_slice' because contours
@@ -74,9 +74,9 @@ def plot_study(study: optuna.Study, metric_name: str, output_dir: Path):
         ax = func(study, **kwargs)
         save_optuna_plot(ax, output_dir / name)
 
-    plot_and_save('edf', metric_name=metric_name)
-    plot_and_save('optimization_history', metric_name=metric_name)
-    plot_and_save('param_importances', metric_name=metric_name)
+    plot_and_save('edf', target_name=target_name)
+    plot_and_save('optimization_history', target_name=target_name)
+    plot_and_save('param_importances', target_name=target_name)
     plot_and_save('intermediate_values')
 
     # contour
